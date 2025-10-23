@@ -33,6 +33,7 @@ jobs:
         run: |
           git fetch origin output || git checkout -b output
           git checkout output
+          mkdir -p dist
           cp dist/snake.svg dist/snake.svg
           git add dist/snake.svg
           git commit -m "Update snake.svg [ci skip]" || echo "No changes to commit"
