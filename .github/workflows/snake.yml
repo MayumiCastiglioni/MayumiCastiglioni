@@ -11,7 +11,6 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
 
     steps:
       - name: Checkout repository
@@ -25,19 +24,16 @@ jobs:
           github_user_name: ${{ github.repository_owner }}
           outputs: dist/snake.svg?palette=pink
 
-      - name: Setup Git for push
+      - name: Setup Git
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-          git fetch origin output || git checkout -b output
 
-      - name: Push snake.svg to the output branch
+      - name: Push snake.svg to output branch
         run: |
-          git checkout output || git checkout -b output
-          mkdir -p dist
+          git fetch origin output || git checkout -b output
+          git checkout output
           cp dist/snake.svg dist/snake.svg
           git add dist/snake.svg
           git commit -m "Update snake.svg [ci skip]" || echo "No changes to commit"
-          git push origin output --force
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} output --force
