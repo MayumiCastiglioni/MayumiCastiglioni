@@ -10,8 +10,6 @@ on:
 
 jobs:
   generate:
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -33,7 +31,7 @@ jobs:
           git config --global user.name "GitHub Actions"
           git fetch origin output || git checkout -b output
 
-      - name: Copy snake.svg to branch
+      - name: Push snake.svg to the output branch
         run: |
           git checkout output || git checkout -b output
           mkdir -p dist
@@ -42,4 +40,4 @@ jobs:
           git commit -m "Update snake.svg [ci skip]" || echo "No changes to commit"
           git push origin output --force
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
