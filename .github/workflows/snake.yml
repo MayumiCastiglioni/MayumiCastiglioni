@@ -2,7 +2,7 @@ name: Generate snake animation
 
 on:
   schedule:
-    - cron: "* */12 * * *"
+    - cron: "0 */12 * * *"  # roda a cada 12h certinho
   workflow_dispatch:
 
 jobs:
@@ -11,27 +11,19 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
-      - name: Generate snake.svg in pink
-        uses: Platane/snk/svg-only@v3.1.0
+      - name: Generate snake.svg
+        uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
-          outputs: dist/snake.svg?palette=pink
+          outputs: |
+            dist/snake.svg?palette=pink
 
-      - name: Setup Git
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-
-      - name: Push snake.svg to output branch
-        run: |
-          git fetch origin output || git checkout -b output
-          git checkout output
-          mkdir -p dist
-          cp dist/snake.svg dist/snake.svg
-          git add dist/snake.svg
-          git commit -m "Update snake.svg [ci skip]" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} output --force
+      - name: Push to output branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
