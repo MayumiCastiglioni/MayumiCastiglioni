@@ -1,11 +1,6 @@
 # 🌸 **Sobre mim**
 
 Hey! Eu sou a **May**, uma **Analista Júnior de Dados** e estudante de **TI com ênfase em Análise de Dados**.  
-Sou movida pela curiosidade e pela vontade de entender o “porquê” por trás de cada dado.  
-Amo transformar números em histórias e insights — tudo com um toque de design e uma base matemática sólida ✨  
-
-Atualmente faço estágio na área de **Investimentos**, explorando dados para guiar decisões e criar soluções inteligentes.  
-No tempo livre, estudo japonês 🇯🇵, monto dashboards e vivo testando novas formas de visualizar o mundo com dados 💖
 
 ---
 
